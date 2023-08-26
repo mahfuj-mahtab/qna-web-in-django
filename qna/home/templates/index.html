@@ -18,27 +18,145 @@
             
          <div class="left_main_container">
 
-            {% for key,value in question_dict.items %}
+            
 
             <div class="question">
-                <a href="/profile/user/{{ value.user }}" class="logo_a">
+                <a href="" class="logo_a">
                 <div class="logo_section">
-                <img class="logo_img" src="/media/{{ value.img }}" alt="">
+                <img class="logo_img" src="{% static 'image/mohot.jpg' %}" alt="">
             </div></a>
             <div class="rest">
-                <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">{{ value.title }}</h3></a>
+                <a class="title_a" href=""><h3 class="question_title">What is Django? is django popular?</h3></a>
                 <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat">{{ value.cat_name }}</a>
+                    <a href="/category/" class="cat">Programming</a>
                    
                 
                 </div>
-                <p class="time">{{ value.time }}</p>
+                <p class="time">23 jun 2023</p>
                 <!-- <p class="total_ans"><b>11 Answered</b></p> -->
 
             </div>
             </div>
-{% endfor %}
+            <div class="question">
+                <a href="" class="logo_a">
+                <div class="logo_section">
+                <img class="logo_img" src="{% static 'image/arnob.jpg' %}" alt="">
+            </div></a>
+            <div class="rest">
+                <a class="title_a" href=""><h3 class="question_title">What is Django? how can i learn django?</h3></a>
+                <div class="category_section">
+                    <a href="/category/" class="cat">Programming</a>
+                   
+                
+                </div>
+                <p class="time">23 jun 2023</p>
+                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
 
+            </div>
+            </div>
+            <div class="question">
+                <a href="" class="logo_a">
+                <div class="logo_section">
+                <img class="logo_img" src="{% static 'image/mohot.jpg' %}" alt="">
+            </div></a>
+            <div class="rest">
+                <a class="title_a" href=""><h3 class="question_title">What is Django?</h3></a>
+                <div class="category_section">
+                    <a href="/category/" class="cat">Programming</a>
+                   
+                
+                </div>
+                <p class="time">23 jun 2023</p>
+                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+            </div>
+            </div>
+            <div class="question">
+                <a href="" class="logo_a">
+                <div class="logo_section">
+                <img class="logo_img" src="{% static 'image/arnob.jpg' %}" alt="">
+            </div></a>
+            <div class="rest">
+                <a class="title_a" href=""><h3 class="question_title">Python vs django? which one is popular?</h3></a>
+                <div class="category_section">
+                    <a href="/category/" class="cat">Programming</a>
+                   
+                
+                </div>
+                <p class="time">23 jun 2023</p>
+                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+            </div>
+            </div>
+
+            <div class="question">
+                <a href="" class="logo_a">
+                <div class="logo_section">
+                <img class="logo_img" src="{% static 'image/mohot.jpg' %}" alt="">
+            </div></a>
+            <div class="rest">
+                <a class="title_a" href=""><h3 class="question_title">What is Django? is django popular?</h3></a>
+                <div class="category_section">
+                    <a href="/category/" class="cat">Programming</a>
+                   
+                
+                </div>
+                <p class="time">23 jun 2023</p>
+                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+            </div>
+            </div>
+            <div class="question">
+                <a href="" class="logo_a">
+                <div class="logo_section">
+                <img class="logo_img" src="{% static 'image/arnob.jpg' %}" alt="">
+            </div></a>
+            <div class="rest">
+                <a class="title_a" href=""><h3 class="question_title">What is Django? how can i learn django?</h3></a>
+                <div class="category_section">
+                    <a href="/category/" class="cat">Programming</a>
+                   
+                
+                </div>
+                <p class="time">23 jun 2023</p>
+                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+            </div>
+            </div>
+            <div class="question">
+                <a href="" class="logo_a">
+                <div class="logo_section">
+                <img class="logo_img" src="{% static 'image/mohot.jpg' %}" alt="">
+            </div></a>
+            <div class="rest">
+                <a class="title_a" href=""><h3 class="question_title">What is Django?</h3></a>
+                <div class="category_section">
+                    <a href="/category/" class="cat">Programming</a>
+                   
+                
+                </div>
+                <p class="time">23 jun 2023</p>
+                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+            </div>
+            </div>
+            <div class="question">
+                <a href="" class="logo_a">
+                <div class="logo_section">
+                <img class="logo_img" src="{% static 'image/arnob.jpg' %}" alt="">
+            </div></a>
+            <div class="rest">
+                <a class="title_a" href=""><h3 class="question_title">Python vs django? which one is popular?</h3></a>
+                <div class="category_section">
+                    <a href="/category/" class="cat">Programming</a>
+                   
+                
+                </div>
+                <p class="time">23 jun 2023</p>
+                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+            </div>
+            </div>
     
 
          </div>
@@ -53,12 +171,28 @@
             
             <div class="top_user">
                 <h3>Top Users</h3>
-                {% for key,value  in user_list.items %}
+               
                 <div class="user">
-                    <a href="/profile/user/{{ value.user }}"><img src="/media/{{ value.img }}"  alt="" class="top_user_logo"></a>
-                    <h4 class="name">{{ value.name }}</h4>
+                    <a href=""><img src="{% static 'image/mohot.jpg' %}" alt="" class="top_user_logo"></a>
+                    <h4 class="name">Mahfuj Mahtab Mohot</h4>
                 </div>
-                {% endfor %}
+                <div class="user">
+                    <a href=""><img src="{% static 'image/arnob.jpg' %}" alt="" class="top_user_logo"></a>
+                    <h4 class="name">Rufiad Rahi Arnob</h4>
+                </div>
+                <div class="user">
+                    <a href=""><img src="{% static 'image/mohot.jpg' %}" alt="" class="top_user_logo"></a>
+                    <h4 class="name">Mahtab Mohot</h4>
+                </div>
+                <div class="user">
+                    <a href=""><img src="{% static 'image/arnob.jpg' %}" alt="" class="top_user_logo"></a>
+                    <h4 class="name">Rufiad Rahi</h4>
+                </div>
+                <div class="user">
+                    <a href=""><img src="{% static 'image/default.jpg' %}" alt="" class="top_user_logo"></a>
+                    <h4 class="name">Nazmul Islam</h4>
+                </div>
+               
                
             </div>
          </div>
