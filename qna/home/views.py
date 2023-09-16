@@ -4,7 +4,19 @@ from django.contrib.auth.hashers import make_password,check_password
 
 
 def home(request):
-    return render(request,"index.html")
+    try:
+        if(request.session['active'] == True):            
+            return render(request,"index.html",{'loged_in' : True})
+        else:
+            return render(request,"index.html",{'loged_in' : False})
+
+    except:
+            return render(request,"index.html",{'loged_in' : False})
+
+def ask_view(request):
+    return render(request,'askquestion.html')
+
+        
 
 def signup_view(request):
     if(request.method == "POST"):
