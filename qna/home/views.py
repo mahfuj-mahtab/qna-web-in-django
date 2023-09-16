@@ -57,3 +57,9 @@ def login(request):
     else:
         return render(request, "Login.html")
     
+def logout(request):
+    del request.session['0']
+    request.session['active'] = False
+    request.session.modified = True
+    return HttpResponseRedirect("/")
+    
