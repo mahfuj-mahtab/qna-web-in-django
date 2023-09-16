@@ -34,3 +34,26 @@ def signup_view(request):
     else:
         return render(request, "Register.html")
     
+def login(request):
+    if(request.method == 'POST'):
+        email = request.POST['email']
+        password = request.POST['password']
+        ecount = OurUser.objects.all().filter(email = email)
+        if(len(ecount) == 1):
+            if(check_password(password,ecount[0].password) == True):
+                print("login")
+                request.session[0] = email
+                request.session['active'] = True
+                return HttpResponseRedirect("/")
+
+            else:
+                print("not login")
+                return HttpResponseRedirect("/login")
+
+        else:
+            print("email not available")
+            return HttpResponseRedirect("/login")
+
+    else:
+        return render(request, "Login.html")
+    
