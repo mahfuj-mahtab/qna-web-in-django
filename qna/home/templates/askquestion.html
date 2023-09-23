@@ -13,9 +13,9 @@
                     <textarea name="details" id="" cols="80" rows="25" class="ask_textarea" placeholder="Please Enter Question Details"></textarea><br>
                     <select name="category" id="" class="ask_input_select">
                         <option value="None">None</option>
-                      
-                        <option value="{{ cat.cat_name }}">Programming</option>
-                       
+                        {% for cat in category %}
+                        <option value="{{ cat.cat_name }}">{{ cat.cat_name }}</option>
+                        {% endfor %}
                        
                     </select>
                     <br>

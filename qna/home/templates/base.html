@@ -22,7 +22,7 @@
               <input type="text" class="search" name="search" id="" placeholder="Search Your Question">
               <input type="submit" value="Search" class="search_btn">
           </form>
-          {% if loged_in == True %}
+          {% if registered == True %}
             <a href="/profile" class="profile_picture_a"><img src="/media/{{my_users.img }}" alt="" class="profile_picture"></a>
             <a class="register-btn" href="/logout"><i class="fa-solid fa-magnifying-glass"></i>Log out</a>
           
