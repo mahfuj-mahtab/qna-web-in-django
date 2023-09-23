@@ -67,6 +67,8 @@ def home(request):
             print("session available")
             my_user = OurUser.objects.filter(email = request.session['0'])
             return render(request,"index.html",{"my_users" : my_user[0], "registered" : True,"question_dict" : question_dict,"total_question":total_question,"total_answer" : 100,"perchantage" : 100,"user_list" : user_list})
+        else:
+            return render(request,"index.html",{"question_dict" : question_dict,"total_question":total_question,"total_answer" : 100,"perchantage" : 100,"user_list" : user_list})
     except:
             print("sorry session not available")
             return render(request,"index.html",{"question_dict" : question_dict,"total_question":total_question,"total_answer" : 100,"perchantage" : 100,"user_list" : user_list})
