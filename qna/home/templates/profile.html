@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="main_profile_div bg2">
+<div class="main_container ">
+    <div class="profile_div">
+        <div class="top_profile_div">
+            <div class="profile_left">
+                <img src="/media/{{ my_users.img }}" alt="" class="main_profile_img">
+            </div>
+            <div class="profile_right">
+                <h2 class="profile_name">{{ my_users.name }}</h2>
+                <span class="follow_section">{{ my_users.Num_of_followers }}  Followers || {{ my_users.Num_of_following }}  Following</span>
+                <br>
+                <a href="/profileedit" class="follow">Edit Profile</a>
+            </div>
+        </div>
+        <div class="botoom_profile_div">
+            <p class="bio">{{ my_users.Bio }}</p>
+        </div>
+    </div>
+    <div class="link_section">
+        <a href="/profile" class="highlight2" >Questions(50)</a>
+        <a href="/profile/answer" class="black" >You Answered(50)</a>
+        <!-- <a href="" class="black">Followers(50)</a>
+        <a href="" class="black">Followings(50)</a> -->
+    </div>
+
+    <div class="profile_bottom_section">
+        <div class="question_section_profile show">
+        {% for question in questions %}
+
+        <div class="question2">
+            <!-- <div class="logo_section">
+            <a href="" class="logo_a"><img class="logo_img" src="{% static 'img/mohot.jpg' %}" alt=""></a>
+        </div> -->
+        <div class="rest2">
+            <a class="title_a" href="/answer/{{ question.id }}"><h3 class="question_title">{{ question.title }}</h3></a>
+            <div class="category_section">
+                <a href="#" class="cat">{{ question.cat_name }}</a>
+               
+            
+            </div>
+            <p class="time">{{ question.time }}</p>
+            <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+        </div>
+        </div>
+{% endfor %}
+</div>
+</div>
+
+</div>
+
+{% endblock body %}
+{% block footer %} <div class="footer">All Right Reserved @ ask.com</div> {% endblock footer%}

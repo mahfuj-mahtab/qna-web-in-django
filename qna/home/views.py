@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse,HttpResponseRedirect
 from home.models import OurUser
 from django.contrib.auth.hashers import make_password,check_password
+from questions.models import Questions
 
 
 def home(request):
@@ -74,4 +75,16 @@ def logout(request):
     request.session['active'] = False
     request.session.modified = True
     return HttpResponseRedirect("/")
+
+def profile_view(request):
+    if request.session['active'] == True:
+
+        questions = Questions.objects.all().filter(u_email = request.session['0'])
+
+        my_user = OurUser.objects.filter(email = request.session['0'])
+      
+        return render(request,"profile.html",{"my_users" : my_user[0], "registered" : True,"questions" : questions})
+    else:
+        print("sorry session not available")
+    return render(request,'profile.html')
     
