@@ -3,6 +3,7 @@ from home.models import OurUser
 from django.contrib.auth.hashers import make_password,check_password
 from questions.models import Questions
 from category.models import *
+from answer.models import Answer
 
 
 def home(request):
@@ -191,3 +192,90 @@ def verify(request):
         else:
             print("failed")
     return render(request,"verify.html")
+
+def show_answer_view(request,id):
+    user_email = OurUser.objects.all()
+    
+    user_list={}
+    questions_info = Questions.objects.all()
+    count=0
+    for i in range(0,len(user_email)):
+        user_info = {}
+        c = 0
+        for j in range(0,len(questions_info)):
+            if(user_email[i].email == questions_info[j].u_email):
+                c+=1
+                if(count != 5):
+                    if(c == 1):
+                        print(user_email[i])
+                        user_info['name'] = user_email[i].name
+                        user_info['img'] = user_email[i].img
+                        user_info['user'] = user_email[i].user
+                        print(user_info)
+                        user_list[i] = user_info
+                        
+                        count+=1
+                    else:
+                        break
+                else:
+                    break
+
+
+
+    questions = Questions.objects.all()
+    total_question = len(questions)
+    answer = Answer.objects.all()
+    total_answer = 0
+
+    for i in range(0,total_question):
+        for j in range(0,len(answer)):
+            if questions[i].id == int(answer[j].Q_ID):
+                total_answer=total_answer + 1       
+    perchantage = (total_answer / total_question) * 100
+    if(request.method == 'POST'):
+        answer = request.POST['answer']
+        a = Answer(Q_answer = answer, like = 0, dislike = 0,u_email = request.session['0'],Q_ID = id)
+        a.save()
+        return HttpResponseRedirect("/answer/{}".format(id))
+    else:      
+        ques = Questions.objects.filter(id = id)
+        ans = Answer.objects.all().filter(Q_ID = id)
+        user_info_collection ={}
+        for i in range(0,len(ans)):
+            user_info_dict= {}
+            for j in range(0,len(user_email)):
+                if(ans[i].u_email == user_email[j].email):
+                    user_info_dict['name'] = user_email[j].name
+                    user_info_dict['img'] = user_email[j].img
+                    user_info_dict['user'] = user_email[j].user
+                    user_info_dict['answer'] = ans[i].Q_answer
+                user_info_collection[i] = user_info_dict
+
+        question_user = OurUser.objects.filter(email = ques[0].u_email)
+        # print("userrr", question_user)
+
+        if request.session['active'] == True:
+            print("session available")
+            my_user = OurUser.objects.filter(email = request.session['0'])
+            return render(request,'answer.html',{"question": ques[0],"my_users" : my_user[0], "registered" : True,"answers" : ans,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"info":user_info_collection,"question_user": question_user[0]})
+        else:
+            return render(request,'answer.html',{"question": ques[0],"answers" : ans,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"info":user_info_collection,"question_user": question_user[0]})
+
+def pass_changed(request):
+    if(request.session['verified'] == True):
+        if(request.method == 'POST'):
+            pass1 = request.POST['password1']
+            pass2 = request.POST['password2']
+            if(pass1 == pass2):
+                pass3 = make_password(pass1)
+                account = OurUser.objects.filter(email = request.session['0']).update(password = pass3)
+                return HttpResponseRedirect("/login")
+            else:
+                print("password didnot match")
+                return HttpResponseRedirect("/changed")
+        else:
+            return render(request,"password.html")
+    else:
+        print("not verified")
+        return HttpResponseRedirect("/verify")
+
