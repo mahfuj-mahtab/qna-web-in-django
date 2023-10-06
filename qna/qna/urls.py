@@ -27,4 +27,5 @@ urlpatterns = [
     path('answer/<int:id>/',show_answer_view,name = 'answer'),
     path('profile/',profile_view,name = 'profile'),
     path("verify/",verify,name="verify"),
+    path('recover/',recover, name= "recover"),
 ]

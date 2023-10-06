@@ -279,3 +279,27 @@ def pass_changed(request):
         print("not verified")
         return HttpResponseRedirect("/verify")
 
+def recover(request):
+    if(request.method == 'POST'):
+        email = request.POST['email']
+        o = OurUser.objects.filter(email = email)
+        if(len(o) == 1):
+            r = random.randint(100000,999999)
+            send_mail(
+                'Password Recovery Email',
+                'Here is the Code : {}'.format(r),
+                'itstechnerd@gmail.com',
+                ['{}'.format(email)],
+                fail_silently=False,
+            )
+            request.session['verify'] = r
+            request.session[0] = email
+            return HttpResponseRedirect("/verify")
+        else:
+            print("sorry email not available")
+
+    else:
+        if(request.session['active'] == False):
+            return render(request, "Recover.html")
+        else:
+            return HttpResponseRedirect("/")
