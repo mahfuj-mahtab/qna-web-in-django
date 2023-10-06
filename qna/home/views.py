@@ -180,3 +180,14 @@ def ask_question_view(request):
         else:
             print("sorry session not available")
             return HttpResponseRedirect("/login")
+        
+def verify(request):
+    if(request.method == 'POST'):
+        n = request.POST['verify']
+        if(int(request.session['verify']) == int(n)):
+            print("yess success")
+            request.session['verified'] = True
+            return HttpResponseRedirect("/changed")
+        else:
+            print("failed")
+    return render(request,"verify.html")

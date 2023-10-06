@@ -25,4 +25,5 @@ urlpatterns = [
     path('logout/', logout, name = 'logout'),
     path('ask/', ask_view, name = 'ask_view'),
     path('profile/',profile_view,name = 'profile'),
+    path("verify/",verify,name="verify"),
 ]
