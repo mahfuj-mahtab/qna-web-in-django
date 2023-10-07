@@ -29,4 +29,5 @@ urlpatterns = [
     path("verify/",verify,name="verify"),
     path('recover/',recover, name= "recover"),
     path('category/<str:cat>',category_view,name = 'category'),
+    path("search/", search,name="search"),
 ]
