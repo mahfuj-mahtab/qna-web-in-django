@@ -18,6 +18,8 @@
             
          <div class="left_main_container">
             <h3 class="search_h3">Showing Value For : {{ search }} Category</h3>
+
+
             {% for key,value in question_dict.items %}
 
             <div class="question">
@@ -30,6 +32,7 @@
                 <div class="category_section">
                     <a href="/category/{{ value.cat_name }}" class="cat">{{ value.cat_name }}</a>
                    
+                
                 </div>
                 <p class="time">{{ value.time }}</p>
                 <!-- <p class="total_ans"><b>11 Answered</b></p> -->

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+    <div class="full">
+            <div class="container">
+        <div class="main_container">
+           <div class="main_edit_section">
+                <h1 class="profile_edit_h1">Profile Edit</h1>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input class="input" type="text" name="fullname" placeholder="Enter Full Name" value="{{ my_users.name}}"><br>
+                    <input class="input" type="password" name="password" placeholder="***********"> <br>
+                    <textarea class="input_textarea" name="bio" id="" cols="60" rows="20" placeholder="Edit Bio">{{ my_users.Bio }}</textarea> <br>
+                    <input class="input" type="number" name="phone" id="" placeholder="01765045048" value="{{ my_users.phone_No }}"> <br>
+                    <p class="im">Upload Profile Picture</p>
+                    <input class="input_file" type="file" name="img" id=""> <br>
+                    <input type="submit" value="Update" class="input_submit">
+
+
+
+                </form>
+           </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+</body>
+</html>

@@ -31,11 +31,12 @@
                 <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">{{ value.title }}</h3></a>
                 <div class="category_section">
                     <a href="/category/{{ value.cat_name }}" class="cat">{{ value.cat_name }}</a>
+                   
+                
                 </div>
                 <p class="time">{{ value.time }}</p>
                 <!-- <p class="total_ans"><b>11 Answered</b></p> -->
 
-                
             </div>
             </div>
 {% endfor %}
@@ -86,3 +87,4 @@
 </div>
 {% endblock body %}
 {% block footer %} <div class="footer">All Right Reserved @ ask.com</div> {% endblock footer%}
+
