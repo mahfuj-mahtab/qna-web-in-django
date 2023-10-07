@@ -364,3 +364,68 @@ def category_view(request,cat):
 
         my_user = OurUser.objects.filter(email = request.session['0'])
         return render(request,"category.html",{"my_users" : my_user[0], "registered" : True,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":cat})
+
+
+def search(request):
+    user_email = OurUser.objects.all()
+    print(user_email)
+    
+    user_list={}
+    questions_info = Questions.objects.all()
+    count=0
+    for i in range(0,len(user_email)):
+        user_info = {}
+        c = 0
+        for j in range(0,len(questions_info)):
+            if(user_email[i].email == questions_info[j].u_email):
+                c+=1
+                if(count != 5):
+                    if(c == 1):
+                        print(user_email[i])
+                        user_info['name'] = user_email[i].name
+                        user_info['img'] = user_email[i].img
+                        user_info['user'] = user_email[i].user
+                        print(user_info)
+                        user_list[i] = user_info
+                        
+                        count+=1
+                    else:
+                        break
+                else:
+                    break
+
+
+
+    questions = Questions.objects.all()
+    total_question = len(questions)
+    answer = Answer.objects.all()
+    total_answer = 0
+
+    for i in range(0,total_question):
+        for j in range(0,len(answer)):
+            if questions[i].id == int(answer[j].Q_ID):
+                total_answer=total_answer + 1       
+    perchantage = (total_answer / total_question) * 100
+
+    if(request.method == 'GET'):
+        search = request.GET['search']
+        question = Questions.objects.filter(title__contains = search)
+        print(question)
+        question_dict = {}
+        for i in range(len(question)):
+            dict = {}
+            for j in range(len(user_email)):
+                if(question[i].u_email == user_email[j].email):
+                    dict['img'] = user_email[j].img
+                    dict['user'] = user_email[j].user
+                    dict['title'] = question[i].title
+                    dict['details'] = question[i].details
+                    dict['cat_name'] = question[i].cat_name
+                    dict['id'] = question[i].id
+                    dict['time'] = question[i].time
+                    question_dict[i] = dict
+        if request.session['active'] == True:
+
+            my_user = OurUser.objects.filter(email = request.session['0'])
+        return render(request,"search.html",{"my_users" : my_user[0], "registered" : True,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":search})
+        
