@@ -31,3 +31,34 @@
                     <a href="/category/{{ value.cat_name }}" class="cat">{{ value.cat_name }}</a>
                    
                 </div>
+                <p class="time">{{ value.time }}</p>
+                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+            </div>
+            </div>
+{% endfor %}
+
+    
+
+         </div>
+         <div class="right_main_container">
+            
+            <div class="overview">
+                <p class="p1">{{ total_question }}<br>  Questions</p>
+                <p class="p1">{{ total_answer }}<br>Answered</p>
+                <p class="p1">{{ perchantage|floatformat:2 }}%<br>Answered</p>
+
+            </div>
+            
+            <div class="top_user">
+                <h3>Top Users</h3>
+                {% for key,value  in user_list.items %}
+                <div class="user">
+                    <a href="/profile/user/{{ value.user }}"><img src="/media/{{ value.img }}"  alt="" class="top_user_logo"></a>
+                    <h4 class="name">{{ value.name }}</h4>
+                </div>
+                {% endfor %}
+               
+            </div>
+         </div>
+        </div>
