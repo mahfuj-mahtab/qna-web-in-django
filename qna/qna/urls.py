@@ -28,4 +28,5 @@ urlpatterns = [
     path('profile/',profile_view,name = 'profile'),
     path("verify/",verify,name="verify"),
     path('recover/',recover, name= "recover"),
+    path('category/<str:cat>',category_view,name = 'category'),
 ]
