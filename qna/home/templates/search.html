@@ -31,4 +31,58 @@
                 <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">{{ value.title }}</h3></a>
                 <div class="category_section">
                     <a href="/category/{{ value.cat_name }}" class="cat">{{ value.cat_name }}</a>
-                   
+                </div>
+                <p class="time">{{ value.time }}</p>
+                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+                
+            </div>
+            </div>
+{% endfor %}
+
+    
+
+         </div>
+         <div class="right_main_container">
+            
+            <div class="overview">
+                <p class="p1">{{ total_question }}<br>  Questions</p>
+                <p class="p1">{{ total_answer }}<br>Answered</p>
+                <p class="p1">{{ perchantage|floatformat:2 }}%<br>Answered</p>
+
+            </div>
+            
+            <div class="top_user">
+                <h3>Top Users</h3>
+                {% for key,value  in user_list.items %}
+                <div class="user">
+                    <a href="/profile/user/{{ value.user }}"><img src="/media/{{ value.img }}"  alt="" class="top_user_logo"></a>
+                    <h4 class="name">{{ value.name }}</h4>
+                </div>
+                {% endfor %}
+               
+            </div>
+         </div>
+        </div>
+        {% block pagination %}
+        <div class="pagination_section">
+            <div class="main_pagination_section">
+
+                <!-- <a href="" class="page_link">1</a>
+                <a href="" class="page_link">1</a>
+                <a href="" class="page_link">1</a>
+                <a href="" class="page_link">1</a>
+                <a href="" class="page_link">1</a>
+                <a href="" class="page_link">1</a>
+                <a href="" class="page_link">1</a> -->
+            </div>
+
+        </div>
+      
+    
+        {% endblock pagination %}
+          
+             
+</div>
+{% endblock body %}
+{% block footer %} <div class="footer">All Right Reserved @ ask.com</div> {% endblock footer%}
