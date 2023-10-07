@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block banner %}
+<div class="banner">
+    <div class="main_banner">
+        <h2>Welcome To ASK.COM</h2>
+        <p>Ask Any Question And <br> Get Answered</p>
+        <a href="/ask_question"  class="ask_question">Ask  Question</a>
+    </div>
+        
+</div>
+{% endblock banner %}
+
+    {% block body %}
+    <div class="container bg">
+        
+        <div class="main_container">
+            
+         <div class="left_main_container">
+            <h3 class="search_h3">Showing Value For : {{ search }}</h3>
+
+
+            {% for key,value in question_dict.items %}
+
+            <div class="question">
+                <a href="/profile/user/{{ value.user }}" class="logo_a">
+                <div class="logo_section">
+                <img class="logo_img" src="/media/{{ value.img }}" alt="">
+            </div></a>
+            <div class="rest">
+                <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">{{ value.title }}</h3></a>
+                <div class="category_section">
+                    <a href="/category/{{ value.cat_name }}" class="cat">{{ value.cat_name }}</a>
+                   
