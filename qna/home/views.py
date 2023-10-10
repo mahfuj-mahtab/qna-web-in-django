@@ -508,3 +508,6 @@ def category_view(request,cat):
 
 def tag_view(request):
     return HttpResponse('Hello tag page')
+
+def message(request):
+    return render(request,"message.html")

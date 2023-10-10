@@ -1,0 +1,75 @@
+/* Reset default styles */
+body, html {
+    margin: 0;
+    padding-top: 10px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+/* Center the container */
+.container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Display messages */
+.message-list {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 500px;
+    overflow-y: auto;
+    margin-bottom: 10px; /* Add margin at the bottom of the message list */
+}
+
+.message-item {
+    background-color: #f7f7f7;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* Message input and send button */
+.message-input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Add margin at the top of the input container */
+    margin-right: 100px;
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.send-button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.back-button{
+    padding: 10px;
+    background-color: white;
+    border: none;
+    color: black;
+    outline: none;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+.back-button:hover {
+    background-color: #ccdbe5;
+    transform: scale(1.05);
+}

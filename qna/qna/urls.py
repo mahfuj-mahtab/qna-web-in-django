@@ -42,4 +42,5 @@ urlpatterns = [
     path("search/", search,name="search"),
     path("verify/",verify,name="verify"),
     path('changed/',pass_changed,name = "password changed"),
+    path('message/',message,name = "messaging"),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
