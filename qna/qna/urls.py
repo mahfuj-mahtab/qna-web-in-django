@@ -41,6 +41,7 @@ urlpatterns = [
     path("upload", upload, name="upload"),
     path("search/", search,name="search"),
     path("verify/",verify,name="verify"),
+    path("verify_register/",verify_register,name="verify register"),
     path('changed/',pass_changed,name = "password changed"),
     path('message/<int:recv_id>',message,name = "messaging"),
     path('message/send/<int:recv_id>',send_message,name = "send messaging"),

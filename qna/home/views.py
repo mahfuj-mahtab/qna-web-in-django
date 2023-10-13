@@ -8,6 +8,8 @@ from answer.models import Answer
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.hashers import make_password,check_password
 from django.core.mail import send_mail
+from random import randint, randrange
+
 import random
 from chat.models import *
 def upload(request):
@@ -298,9 +300,18 @@ def signup_view(request):
                 print("more than one user name")
             else:
                 if(len(password) >= 8):
+                    r = randrange(100000, 10000000)
+                    request.session['verify'] = r
+                    send_mail(
+                                    "Verification Code",
+                                    "This is your verification Code {}".format(r),
+                                    "itstechnerd@gmail.com",
+                                    ["{}".format(email)],
+                                    fail_silently=False,
+                                )
                     user = OurUser(name = name, email = email,password = passw,user = username,Num_of_followers = 0,Num_of_following = 0,img = "default.jpg",phone_No = 0,Bio = '')
                     user.save()
-                    return HttpResponseRedirect("/")
+                    return HttpResponseRedirect("/verify_register/")
                 else:
                     print("password is less than 8 char")
        
@@ -369,6 +380,16 @@ def verify(request):
             print("yess success")
             request.session['verified'] = True
             return HttpResponseRedirect("/changed")
+        else:
+            print("failed")
+    return render(request,"verify.html")
+def verify_register(request):
+    if(request.method == 'POST'):
+        n = request.POST['verify']
+        if(int(request.session['verify']) == int(n)):
+            print("yess success")
+            request.session['verified'] = True
+            return HttpResponseRedirect("/login")
         else:
             print("failed")
     return render(request,"verify.html")
