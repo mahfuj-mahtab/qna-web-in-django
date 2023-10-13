@@ -236,6 +236,9 @@ def show_answer_view(request,id):
                     user_info_dict['img'] = user_email[j].img
                     user_info_dict['user'] = user_email[j].user
                     user_info_dict['answer'] = ans[i].Q_answer
+                    user_info_dict['ans_id'] =  ans[i].id
+                    user_info_dict['like'] = ans[i].like
+                    user_info_dict['dislike'] = ans[i].dislike
                 user_info_collection[i] = user_info_dict
 
         question_user = OurUser.objects.filter(email = ques[0].u_email)
@@ -524,6 +527,20 @@ def send_message(request,recv_id):
         ms = Message(sender = sender_user[0],receiver = receiver_user[0],content = msg)
         ms.save()
         return redirect(f"/message/{recv_id}")
-def follow_view(request,following_id,follower_id):
-    if(request.method == 'POST'):
+
+
+
+def like_answer_view(request,ans_id):
+    try:
+        if(request.session['active'] == True):
+            if(request.method == 'POST'):
+                ans = Answer.objects.filter(id = ans_id)
+                
+                ans[0].like = 1
+                ans[0].save()
+        else:
+            return redirect("/login")
+    except:
         pass
+def dislike_answer_view(request,ans_id):
+    pass

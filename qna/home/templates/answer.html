@@ -69,16 +69,26 @@
                         <div class="answer">
                             <p>{{ value.answer }}</p>
                         </div>
-                        <!-- <span class="likedislikepart"> <span class="num">54</span>
+                        <div class="likedislikepart"> 
+                            <form action="/like/answer/{{value.ans_id}}" method="POST">
+                                {%csrf_token%}
+                                <button>
+                                    <span class="num">{{value.like}}</span>
                         <span class="material-symbols-outlined">
                                thumb_up
                             </span>
-
-                          <span class="num">  2 </span>
+                        </button>
+                        </form>
+                        <form action="/dislike/answer/{{value.ans_id}}" method="POST">
+                            {%csrf_token%}
+                            <button>
+                                <span class="num">  {{value.dislike}} </span>
                             <span class="material-symbols-outlined">
                                 thumb_down
                                 </span>
-                        </span> -->
+                                </button>
+                                </form>
+                            </div>
                     </div>
                     {% endfor %}
 
