@@ -44,4 +44,5 @@ urlpatterns = [
     path('changed/',pass_changed,name = "password changed"),
     path('message/<int:recv_id>',message,name = "messaging"),
     path('message/send/<int:recv_id>',send_message,name = "send messaging"),
+    path('follow/<int:follower_id>/<int:following_id>',follow_view,name = "send follow_view"),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

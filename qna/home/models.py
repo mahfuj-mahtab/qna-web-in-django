@@ -11,3 +11,7 @@ class OurUser(models.Model):
     user = models.CharField(max_length = 100,null = True)
     img = models.ImageField(upload_to='images/', null= True)
     phone_No = models.CharField(max_length = 15, null= True)
+
+class Follow(models.Model):
+    follower = models.IntegerField()
+    # following = models.IntegerField()

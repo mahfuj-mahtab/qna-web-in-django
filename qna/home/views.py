@@ -97,7 +97,7 @@ def profile_view_other(request,u):
         answers = Answer.objects.all().filter(u_email = user[0].email)
  
         
-        return render(request,"othersprofile.html",{"user": user[0],"questions" : questions,"my_users" : my_user[0], "registered" : True,'send_id' : user[0].id})
+        return render(request,"othersprofile.html",{"user": user[0],"questions" : questions,"my_users" : my_user[0], "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
 
 
 
@@ -178,7 +178,7 @@ def profile_view_other_answer(request,u):
             q.append(answers[i].Q_ID)
             q2 = Questions.objects.filter(id = answers[i].Q_ID)
         q50 = Questions.objects.filter(id__in = q)
-        return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50,"my_users" : my_user[0], "registered" : True,'send_id' : user[0].id})    
+        return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50,"my_users" : my_user[0], "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})    
 
 def show_answer_view(request,id):
     user_email = OurUser.objects.all()
@@ -385,10 +385,10 @@ def profile_view(request):
     if request.session['active'] == True:
 
         questions = Questions.objects.all().filter(u_email = request.session['0'])
-
+        answers = Answer.objects.all().filter(u_email = request.session['0'])
         my_user = OurUser.objects.filter(email = request.session['0'])
       
-        return render(request,"profile.html",{"my_users" : my_user[0], "registered" : True,"questions" : questions})
+        return render(request,"profile.html",{"my_users" : my_user[0], "registered" : True,"questions" : questions,'total_question' : len(questions),'total_answered' : len(answers)})
     else:
         print("sorry session not available")
     return render(request,'profile.html')
@@ -406,10 +406,10 @@ def profile_view_answer(request):
 
         my_user = OurUser.objects.filter(email = request.session['0'])
 
-        return render(request,"profile2.html",{"my_users" : my_user[0], "registered" : True,"questions" : questions,"answers" : answers, "answered_question" : q50})
+        return render(request,"profile2.html",{"my_users" : my_user[0], "registered" : True,"questions" : questions,"answers" : answers, "answered_question" : q50,'total_question' : len(questions),'total_answered' : len(answers)})
     else:
         print("sorry session not available")
-    return render(request,'profile.html')
+        return render(request,'profile.html')
 
 def profileedit(request):
     if(request.method == 'POST'):
@@ -524,3 +524,6 @@ def send_message(request,recv_id):
         ms = Message(sender = sender_user[0],receiver = receiver_user[0],content = msg)
         ms.save()
         return redirect(f"/message/{recv_id}")
+def follow_view(request,following_id,follower_id):
+    if(request.method == 'POST'):
+        pass

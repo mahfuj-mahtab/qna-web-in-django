@@ -11,7 +11,7 @@
             </div>
             <div class="profile_right">
                 <h2 class="profile_name">{{ my_users.name }}</h2>
-                <span class="follow_section">{{ my_users.Num_of_followers }}  Followers || {{ my_users.Num_of_following }}  Following</span>
+                <span class="follow_section">{{ total_question}} Asked || {{ total_answered }} Answered</span>
                 <br>
                 <a href="/profileedit" class="follow">Edit Profile</a>
             </div>
@@ -21,8 +21,8 @@
         </div>
     </div>
     <div class="link_section">
-        <a href="/profile" class="highlight2" >Questions(50)</a>
-        <a href="/profile/answer" class="black" >You Answered(50)</a>
+        <a href="/profile" class="highlight2" >Questions({{ total_question}})</a>
+        <a href="/profile/answer" class="black" >You Answered({{ total_answered }})</a>
         <!-- <a href="" class="black">Followers(50)</a>
         <a href="" class="black">Followings(50)</a> -->
     </div>
