@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'questions',
     'answer',
     'category',
+    'chat'
 ]
 
 MIDDLEWARE = [

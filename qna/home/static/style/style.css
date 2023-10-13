@@ -784,6 +784,8 @@ textarea::placeholder{
     border-radius: 10px;
     color: white;
     text-decoration: none;
+    float: left;
+    margin-right: 10px;
 }
 .link_section{
     width: 800px;
@@ -833,4 +835,7 @@ textarea::placeholder{
 }
 .question_section_profile{
     display: block;
+}
+img{
+    object-fit: cover;
 }

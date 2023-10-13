@@ -834,3 +834,7 @@ textarea::placeholder{
 .question_section_profile{
     display: block;
 }
+img{
+    object-fit: cover;
+    width: 1000px;
+}

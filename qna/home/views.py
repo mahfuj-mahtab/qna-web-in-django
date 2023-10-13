@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, HttpResponse,HttpResponseRedirect
+from django.shortcuts import render, HttpResponse,HttpResponseRedirect,redirect
 from home.models import OurUser
 from questions.models import Questions
 from category.models import Category
@@ -9,7 +9,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.hashers import make_password,check_password
 from django.core.mail import send_mail
 import random
-
+from chat.models import *
 def upload(request):
     if request.method == 'POST' and request.FILES['img']:
         pass
@@ -97,7 +97,7 @@ def profile_view_other(request,u):
         answers = Answer.objects.all().filter(u_email = user[0].email)
  
         
-        return render(request,"othersprofile.html",{"user": user[0],"questions" : questions,"my_users" : my_user[0], "registered" : True})
+        return render(request,"othersprofile.html",{"user": user[0],"questions" : questions,"my_users" : my_user[0], "registered" : True,'send_id' : user[0].id})
 
 
 
@@ -178,7 +178,7 @@ def profile_view_other_answer(request,u):
             q.append(answers[i].Q_ID)
             q2 = Questions.objects.filter(id = answers[i].Q_ID)
         q50 = Questions.objects.filter(id__in = q)
-        return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50,"my_users" : my_user[0], "registered" : True})    
+        return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50,"my_users" : my_user[0], "registered" : True,'send_id' : user[0].id})    
 
 def show_answer_view(request,id):
     user_email = OurUser.objects.all()
@@ -509,5 +509,18 @@ def category_view(request,cat):
 def tag_view(request):
     return HttpResponse('Hello tag page')
 
-def message(request):
-    return render(request,"message.html")
+def message(request,recv_id):
+    sender_user = OurUser.objects.filter(email = request.session['0'])
+    receiver_user = OurUser.objects.filter(id = recv_id)
+
+    messages = Message.objects.filter(sender=sender_user[0].id, receiver=receiver_user[0].id) | Message.objects.filter(sender=receiver_user[0].id, receiver=sender_user[0].id).order_by('timestamp')
+    return render(request,"message.html",{"recv_id" : recv_id,'send_id' : sender_user[0].id,'msgs' : messages,'send_user' :sender_user[0], 'rec_user' : receiver_user[0]})
+
+def send_message(request,recv_id):
+    if(request.method == 'POST'):
+        msg = request.POST['msg']
+        sender_user = OurUser.objects.filter(email = request.session['0'])
+        receiver_user = OurUser.objects.filter(id = recv_id)
+        ms = Message(sender = sender_user[0],receiver = receiver_user[0],content = msg)
+        ms.save()
+        return redirect(f"/message/{recv_id}")

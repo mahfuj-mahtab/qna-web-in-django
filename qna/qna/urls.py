@@ -42,5 +42,6 @@ urlpatterns = [
     path("search/", search,name="search"),
     path("verify/",verify,name="verify"),
     path('changed/',pass_changed,name = "password changed"),
-    path('message/',message,name = "messaging"),
+    path('message/<int:recv_id>',message,name = "messaging"),
+    path('message/send/<int:recv_id>',send_message,name = "send messaging"),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
