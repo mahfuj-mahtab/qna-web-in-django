@@ -76,29 +76,39 @@ def home_view(request):
                 question_dict[i] = dict
                 
 
-    if request.session['active'] == True:
-        print("session available")
-        my_user = OurUser.objects.filter(email = request.session['0'])
-        return render(request,"index.html",{"my_users" : my_user[0], "registered" : True,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list})
-    else:
-        print("sorry session not available")
-        return render(request,"index.html",{"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list})
+    try:
+        if request.session['active'] == True:
+            print("session available")
+            my_user = OurUser.objects.filter(email = request.session['0'])
+            return render(request,"index.html",{"my_users" : my_user[0], "registered" : True,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list})
+        else:
+            print("sorry session not available")
+            return render(request,"index.html",{"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list})
+    except:
+        pass
 
 def about(request):
     return render(request,"about.html")
 
 def profile_view_other(request,u):
     user = OurUser.objects.all().filter(user = u)
-    if(request.session['active'] == True and request.session['0'] == user[0].email):
-        return HttpResponseRedirect("/profile")
-    else:
-        my_user = OurUser.objects.filter(email = request.session['0'])
-        questions = Questions.objects.all().filter(u_email = user[0].email)
-        answers = Answer.objects.all().filter(u_email = user[0].email)
- 
-        
-        return render(request,"othersprofile.html",{"user": user[0],"questions" : questions,"my_users" : my_user[0], "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
-
+    try:
+        if(request.session['active'] == True and request.session['0'] == user[0].email):
+            return HttpResponseRedirect("/profile")
+       
+        else:
+            # my_user = OurUser.objects.filter(email = request.session['0'])
+            questions = Questions.objects.all().filter(u_email = user[0].email)
+            answers = Answer.objects.all().filter(u_email = user[0].email)
+            
+            return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
+    except:
+            # print('h')
+            # my_user = OurUser.objects.filter(email = request.session['0'])
+            questions = Questions.objects.all().filter(u_email = user[0].email)
+            answers = Answer.objects.all().filter(u_email = user[0].email)
+            
+            return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
 
 
 def search(request):
@@ -159,26 +169,42 @@ def search(request):
                     dict['id'] = question[i].id
                     dict['time'] = question[i].time
                     question_dict[i] = dict
-        if request.session['active'] == True:
+        try:
+            if request.session['active'] == True:
+                my_user = OurUser.objects.filter(email = request.session['0'])
+                return render(request,"search.html",{"my_users" : my_user[0], "registered" : True,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":search})
+            else:
+                return render(request,"search.html",{"registered" : False,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":search})
+        except:
+                return render(request,"search.html",{"registered" : False,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":search})
 
-            my_user = OurUser.objects.filter(email = request.session['0'])
-        return render(request,"search.html",{"my_users" : my_user[0], "registered" : True,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":search})
+
         
 
 def profile_view_other_answer(request,u):
     user = OurUser.objects.all().filter(user = u)
-    if(request.session['active'] == True and request.session['0'] == user[0].email):
-        return HttpResponseRedirect("/profile")
-    else:
-        my_user = OurUser.objects.filter(email = request.session['0'])
-        questions = Questions.objects.all().filter(u_email = user[0].email)
-        answers = Answer.objects.all().filter(u_email = user[0].email)
-        q=[]
-        for i in range(len(answers)):
-            q.append(answers[i].Q_ID)
-            q2 = Questions.objects.filter(id = answers[i].Q_ID)
-        q50 = Questions.objects.filter(id__in = q)
-        return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50,"my_users" : my_user[0], "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})    
+    try:
+        if(request.session['active'] == True and request.session['0'] == user[0].email):
+            return HttpResponseRedirect("/profile")
+        else:
+            # my_user = OurUser.objects.filter(email = request.session['0'])
+            questions = Questions.objects.all().filter(u_email = user[0].email)
+            answers = Answer.objects.all().filter(u_email = user[0].email)
+            q=[]
+            for i in range(len(answers)):
+                q.append(answers[i].Q_ID)
+                q2 = Questions.objects.filter(id = answers[i].Q_ID)
+            q50 = Questions.objects.filter(id__in = q)
+            return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})  
+    except:
+            questions = Questions.objects.all().filter(u_email = user[0].email)
+            answers = Answer.objects.all().filter(u_email = user[0].email)
+            q=[]
+            for i in range(len(answers)):
+                q.append(answers[i].Q_ID)
+                q2 = Questions.objects.filter(id = answers[i].Q_ID)
+            q50 = Questions.objects.filter(id__in = q)
+            return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)}) 
 
 def show_answer_view(request,id):
     user_email = OurUser.objects.all()
@@ -243,15 +269,15 @@ def show_answer_view(request,id):
 
         question_user = OurUser.objects.filter(email = ques[0].u_email)
         # print("userrr", question_user)
-
-        if request.session['active'] == True:
-            print("session available")
-            my_user = OurUser.objects.filter(email = request.session['0'])
-            return render(request,'answer.html',{"question": ques[0],"my_users" : my_user[0], "registered" : True,"answers" : ans,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"info":user_info_collection,"question_user": question_user[0]})
-        else:
-            return render(request,'answer.html',{"question": ques[0],"answers" : ans,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"info":user_info_collection,"question_user": question_user[0]})
-
-
+        try:
+            if request.session['active'] == True:
+                print("session available")
+                my_user = OurUser.objects.filter(email = request.session['0'])
+                return render(request,'answer.html',{"question": ques[0],"my_users" : my_user[0], "registered" : True,"answers" : ans,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"info":user_info_collection,"question_user": question_user[0]})
+            else:
+                return render(request,'answer.html',{"question": ques[0],"answers" : ans,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"info":user_info_collection,"question_user": question_user[0]})
+        except:
+                return render(request,'answer.html',{"question": ques[0],"answers" : ans,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"info":user_info_collection,"question_user": question_user[0]})
 def search_view(request):
     return HttpResponse('Hello search page')
 
@@ -372,47 +398,54 @@ def ask_question_view(request):
         q.save()
         return HttpResponseRedirect("/")
     else:
-        if request.session['active'] == True:
-            print("session available")
-            category = Category.objects.all()
-            my_user = OurUser.objects.filter(email = request.session['0'])
-            return render(request,"askquestion.html",{"my_users" : my_user[0], "registered" : True, "category" : category})
-        else:
-            print("sorry session not available")
-            return HttpResponseRedirect("/login")
-
+        try:
+            if request.session['active'] == True:
+                print("session available")
+                category = Category.objects.all()
+                my_user = OurUser.objects.filter(email = request.session['0'])
+                return render(request,"askquestion.html",{"my_users" : my_user[0], "registered" : True, "category" : category})
+            else:
+                print("sorry session not available")
+                return HttpResponseRedirect("/login")
+        except:
+                return HttpResponseRedirect("/login")
+            
 def pagination_view(request):
     return HttpResponse('Hello pagination  page')
 
 def profile_view(request):
-    if request.session['active'] == True:
+    try:
+        if request.session['active'] == True:
 
-        questions = Questions.objects.all().filter(u_email = request.session['0'])
-        answers = Answer.objects.all().filter(u_email = request.session['0'])
-        my_user = OurUser.objects.filter(email = request.session['0'])
-      
-        return render(request,"profile.html",{"my_users" : my_user[0], "registered" : True,"questions" : questions,'total_question' : len(questions),'total_answered' : len(answers)})
-    else:
-        print("sorry session not available")
-    return render(request,'profile.html')
-
+            questions = Questions.objects.all().filter(u_email = request.session['0'])
+            answers = Answer.objects.all().filter(u_email = request.session['0'])
+            my_user = OurUser.objects.filter(email = request.session['0'])
+        
+            return render(request,"profile.html",{"my_users" : my_user[0], "registered" : True,"questions" : questions,'total_question' : len(questions),'total_answered' : len(answers)})
+        else:
+            return redirect("/login")
+    except:
+            return redirect("/login")
 def profile_view_answer(request):
-    if request.session['active'] == True:
-        print("session available")
-        questions = Questions.objects.all().filter(u_email = request.session['0'])
-        answers = Answer.objects.all().filter(u_email = request.session['0'])
-        q=[]
-        for i in range(len(answers)):
-            q.append(answers[i].Q_ID)
-            q2 = Questions.objects.filter(id = answers[i].Q_ID)
-        q50 = Questions.objects.filter(id__in = q)
+    try:
+        if request.session['active'] == True:
+            print("session available")
+            questions = Questions.objects.all().filter(u_email = request.session['0'])
+            answers = Answer.objects.all().filter(u_email = request.session['0'])
+            q=[]
+            for i in range(len(answers)):
+                q.append(answers[i].Q_ID)
+                q2 = Questions.objects.filter(id = answers[i].Q_ID)
+            q50 = Questions.objects.filter(id__in = q)
 
-        my_user = OurUser.objects.filter(email = request.session['0'])
+            my_user = OurUser.objects.filter(email = request.session['0'])
 
-        return render(request,"profile2.html",{"my_users" : my_user[0], "registered" : True,"questions" : questions,"answers" : answers, "answered_question" : q50,'total_question' : len(questions),'total_answered' : len(answers)})
-    else:
-        print("sorry session not available")
-        return render(request,'profile.html')
+            return render(request,"profile2.html",{"my_users" : my_user[0], "registered" : True,"questions" : questions,"answers" : answers, "answered_question" : q50,'total_question' : len(questions),'total_answered' : len(answers)})
+        else:
+            print("sorry session not available")
+            return redirect("/login")
+    except:
+            return redirect("/login")
 
 def profileedit(request):
     if(request.method == 'POST'):
@@ -504,10 +537,17 @@ def category_view(request,cat):
                 dict['time'] = question[i].time
                 question_dict[i] = dict
 
-    if request.session['active'] == True:
+    try:
+        if request.session['active'] == True:
 
-        my_user = OurUser.objects.filter(email = request.session['0'])
-        return render(request,"category.html",{"my_users" : my_user[0], "registered" : True,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":cat})
+            my_user = OurUser.objects.filter(email = request.session['0'])
+            return render(request,"category.html",{"my_users" : my_user[0], "registered" : True,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":cat})
+        else:
+            # my_user = OurUser.objects.filter(email = request.session['0'])
+            return render(request,"category.html",{ "registered" : False,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":cat})
+    except:
+            return render(request,"category.html",{ "registered" : False,"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list,"search":cat})
+
 
 def tag_view(request):
     return HttpResponse('Hello tag page')

@@ -588,6 +588,12 @@ margin-left: 45px;
 
 
 }
+input[type='text'],textarea{
+    /* padding: 10px; */
+}
+textarea::placeholder{
+    padding: 0px;
+}
 .material-symbols-outlined{
     margin-right: 10px;
 }
