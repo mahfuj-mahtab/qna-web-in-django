@@ -375,7 +375,8 @@ def recover(request):
             request.session[0] = email
             return HttpResponseRedirect("/verify")
         else:
-            print("sorry email not available")
+            return HttpResponseRedirect("/login")
+
 
     else:
         if(request.session['active'] == False):
