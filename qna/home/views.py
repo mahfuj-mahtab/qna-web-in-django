@@ -25,7 +25,7 @@ def home_view(request):
     user_email = OurUser.objects.all()
     
     user_list={}
-    questions_info = Questions.objects.all()
+    questions_info = Questions.objects.all().order_by("-id")
     count=0
 
     for i in range(0,len(user_email)):
@@ -49,7 +49,7 @@ def home_view(request):
 
 
 
-    questions = Questions.objects.all()
+    questions = Questions.objects.all().order_by("-id")
     total_question = len(questions)
     answer = Answer.objects.all()
     total_answer = 0
@@ -87,7 +87,7 @@ def home_view(request):
             print("sorry session not available")
             return render(request,"index.html",{"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list})
     except:
-        pass
+            return render(request,"index.html",{"question_dict" : question_dict,"total_question":total_question,"total_answer" : total_answer,"perchantage" : perchantage,"user_list" : user_list})
 
 def about(request):
     return render(request,"about.html")
@@ -99,16 +99,16 @@ def profile_view_other(request,u):
             return HttpResponseRedirect("/profile")
        
         elif(request.session['active'] == True):
-            # my_user = OurUser.objects.filter(email = request.session['0'])
-            questions = Questions.objects.all().filter(u_email = user[0].email)
-            answers = Answer.objects.all().filter(u_email = user[0].email)
+            my_user = OurUser.objects.filter(email = request.session['0'])
+            questions = Questions.objects.all().filter(u_email = user[0].email).order_by("-id")
+            answers = Answer.objects.all().filter(u_email = user[0].email).order_by("-id")
             
-            return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
+            return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers),'my_users' :my_user[0] })
     except:
             # print('h')
             # my_user = OurUser.objects.filter(email = request.session['0'])
-            questions = Questions.objects.all().filter(u_email = user[0].email)
-            answers = Answer.objects.all().filter(u_email = user[0].email)
+            questions = Questions.objects.all().filter(u_email = user[0].email).order_by("-id")
+            answers = Answer.objects.all().filter(u_email = user[0].email).order_by("-id")
             
             return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
 
@@ -189,15 +189,15 @@ def profile_view_other_answer(request,u):
         if(request.session['active'] == True and request.session['0'] == user[0].email):
             return HttpResponseRedirect("/profile")
         elif(request.session['active'] == True):
-            # my_user = OurUser.objects.filter(email = request.session['0'])
-            questions = Questions.objects.all().filter(u_email = user[0].email)
-            answers = Answer.objects.all().filter(u_email = user[0].email)
+            my_user = OurUser.objects.filter(email = request.session['0'])
+            questions = Questions.objects.all().filter(u_email = user[0].email).order_by("-id")
+            answers = Answer.objects.all().filter(u_email = user[0].email).order_by("-id")
             q=[]
             for i in range(len(answers)):
                 q.append(answers[i].Q_ID)
-                q2 = Questions.objects.filter(id = answers[i].Q_ID)
+                q2 = Questions.objects.filter(id = answers[i].Q_ID).order_by("-id")
             q50 = Questions.objects.filter(id__in = q)
-            return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)}) 
+            return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers),'my_users' :my_user[0]}) 
         # else:
         #     questions = Questions.objects.all().filter(u_email = user[0].email)
         #     answers = Answer.objects.all().filter(u_email = user[0].email)
@@ -208,13 +208,13 @@ def profile_view_other_answer(request,u):
         #     q50 = Questions.objects.filter(id__in = q)
         #     return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)}) 
     except:
-            questions = Questions.objects.all().filter(u_email = user[0].email)
-            answers = Answer.objects.all().filter(u_email = user[0].email)
+            questions = Questions.objects.all().filter(u_email = user[0].email).order_by("-id")
+            answers = Answer.objects.all().filter(u_email = user[0].email).order_by("-id")
             q=[]
             for i in range(len(answers)):
                 q.append(answers[i].Q_ID)
-                q2 = Questions.objects.filter(id = answers[i].Q_ID)
-            q50 = Questions.objects.filter(id__in = q)
+                q2 = Questions.objects.filter(id = answers[i].Q_ID).order_by("-id")
+            q50 = Questions.objects.filter(id__in = q).order_by("-id")
             return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)}) 
 
 def show_answer_view(request,id):
