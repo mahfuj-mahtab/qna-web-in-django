@@ -98,12 +98,12 @@ def profile_view_other(request,u):
         if(request.session['active'] == True and request.session['0'] == user[0].email):
             return HttpResponseRedirect("/profile")
        
-        else:
+        elif(request.session['active'] == True):
             # my_user = OurUser.objects.filter(email = request.session['0'])
             questions = Questions.objects.all().filter(u_email = user[0].email)
             answers = Answer.objects.all().filter(u_email = user[0].email)
             
-            return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
+            return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
     except:
             # print('h')
             # my_user = OurUser.objects.filter(email = request.session['0'])
@@ -188,7 +188,7 @@ def profile_view_other_answer(request,u):
     try:
         if(request.session['active'] == True and request.session['0'] == user[0].email):
             return HttpResponseRedirect("/profile")
-        else:
+        elif(request.session['active'] == True):
             # my_user = OurUser.objects.filter(email = request.session['0'])
             questions = Questions.objects.all().filter(u_email = user[0].email)
             answers = Answer.objects.all().filter(u_email = user[0].email)
@@ -197,7 +197,16 @@ def profile_view_other_answer(request,u):
                 q.append(answers[i].Q_ID)
                 q2 = Questions.objects.filter(id = answers[i].Q_ID)
             q50 = Questions.objects.filter(id__in = q)
-            return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})  
+            return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)}) 
+        # else:
+        #     questions = Questions.objects.all().filter(u_email = user[0].email)
+        #     answers = Answer.objects.all().filter(u_email = user[0].email)
+        #     q=[]
+        #     for i in range(len(answers)):
+        #         q.append(answers[i].Q_ID)
+        #         q2 = Questions.objects.filter(id = answers[i].Q_ID)
+        #     q50 = Questions.objects.filter(id__in = q)
+        #     return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)}) 
     except:
             questions = Questions.objects.all().filter(u_email = user[0].email)
             answers = Answer.objects.all().filter(u_email = user[0].email)

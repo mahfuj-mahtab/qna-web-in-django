@@ -83,6 +83,25 @@
     background: #E07C24;
     border-radius: 10px;
 }
+.register-btn-logout{
+    color: white;
+    text-decoration: none;
+    font-size: 19px;
+    width: 170px;
+    height: 40px;
+    line-height: 40px;
+    /* border: 1px solid red; */
+    display: block;
+    float: left;
+    /* margin-left: 90px; */
+    position: relative;
+    margin-top: 25px;
+    margin-left: 10px;
+    text-align: center;
+    font-weight: bold;
+    background: #E07C24;
+    border-radius: 10px;
+}
 .search{
     width: 370px;
     height: 44px;
@@ -199,7 +218,7 @@
 .profile_bottom_section{
     width: 800px;
     margin-left: 200px;
-    height: 1000px;
+    /* height: 1000px; */
 }
 .question2{
     width: 800px;
