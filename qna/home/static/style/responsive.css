@@ -261,7 +261,258 @@
 
 /* Small Devices (Landscape Phones) */
 @media (min-width: 576px) and (max-width: 768px) {
-    /* Your styles for small devices go here */
+    body{
+        width: 100%;
+        
+    }
+    .container{
+        width: 100%;
+        overflow: hidden;
+    }
+    .header{
+        width: 100%;
+    }
+    .main_header{
+        width: 100%;
+    }
+    .search_btn{
+        width: 50px;
+        font-size: 12px;
+        margin-left: 5px;
+        /* display: none; */
+
+    }
+    .logo{
+        width: 30px;
+        margin-left: -10px;
+        font-size: 17px;
+    }
+    .search{
+        width: 170px;
+        margin-left:25%;
+    }
+    #search{
+        
+    }
+    .search::placeholder{
+        font-size: 10px;
+    }
+    .register-btn{
+        width: 50px;
+        font-size: 12px;
+        margin-left: 5px;
+
+    }
+.banner{
+    width: 100%;
+}
+.main_banner{
+    width: 100%;
+}
+.banner .main_banner h2{
+    font-size: 27px;
+}
+
+.banner .main_banner p{
+    font-size: 16px;
+}
+.ask_question{
+    width: 140px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+}
+.main_container{
+    width: 100%;
+    overflow: hidden;
+}
+.left_main_container{
+    width: 100%;
+    float: none;
+    padding-top: 20px;
+}
+.right_main_container{
+    width: 100%;
+    margin: 0 auto;
+}
+.question{
+    width: 80%;
+    height: 120px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.logo_a{
+    width: 50px;
+    height: 50px;
+}
+.logo_img{
+    width: 50px;
+    height: 50px;
+    margin-left: -20px;
+    margin-top: 20px;
+}
+.question_title{
+    width: 100%;
+    font-size: 16px;
+}
+.logo_section{
+    width: 30px;
+    float: left;
+}
+.rest{
+    margin-left: 0px;
+    padding-left: 50px;
+}
+
+.overview,.top_user{
+    margin-left: 7%;
+}
+.answer_details{
+    width: 95%;
+    border-radius: 10px;
+    margin: 0 auto;
+    height: auto;
+    margin-left: 10px;
+}
+.answer_details_top_left{
+    width: 25%;
+}
+.answer_details_top_right{
+    width: 69%;
+}
+.q_title{
+    width: 100%;
+}
+.answer_details2{
+    margin-left: 10px;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+.answer_section h1{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.answer_details_top_right2{
+    width: 70%;
+}
+.pagination_section{
+    width: 100%;
+}
+.login-box{
+    width: 90%;
+    border-radius: 10px;
+}
+.left_login_box{
+    display: none;
+}
+.right_login_box{
+    width: 90%;
+    padding-left: 0px;
+    border-radius: 10px;
+}
+.login_title{
+    margin-left: 0px;
+}
+.right_login_box input[type = text]{
+    width: 80%;
+    border-radius: 10px;
+    margin-left: 0px;
+    padding-left: 40px;
+}
+.right_login_box input[type = number]{
+    width: 80%;
+    border-radius: 10px;
+    margin-left: 0px;
+    padding-left: 40px;
+}
+.right_login_box input[type = checkbox]{
+
+    margin-left: 0px;
+    
+}
+.right_login_box input[type = password]{
+    width: 80%;
+    border-radius: 10px;
+    margin-left: 0px;
+    padding-left: 40px;
+}
+.right_login_box input[type = email]{
+    width: 80%;
+    border-radius: 10px;
+    margin-left: 0px;
+    padding-left: 40px;
+}
+.right_login_box input[type = submit]{
+    width: 90%;
+    border-radius: 10px;
+    margin-left: 0px;
+    padding-left: 40px;
+}
+.a_fb{
+    width: 90%;
+    margin-left: 0px;
+}
+
+.material-symbols-outlined{
+    margin-left: -300px;
+}
+
+.ask_section{
+    width: 100%;
+}
+.ask_section_main{
+    width: 90%;
+    margin-left: 10px;
+    border-radius: 10px;
+
+}
+.ask_input,.ask_textarea,.ask_input_select  ,.ask_btn{
+    width: 90%;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+/* .profile_picture{
+    width: 40px;
+    height: 40px;
+} */
+
+.profile_div{
+    width: 95%;
+    margin-left: 10px;
+    height: 200px;
+}
+.link_section{
+    width: 95%;
+    margin-left: 10px;
+    /* height: 200px; */
+}
+.profile_left{
+    width: 30%;
+}
+.profile_right{
+    width: 69%;
+}
+.main_profile_img{
+    width: 70px;height: 70px;
+}
+.profile_bottom_section{
+    width: 100%;
+    margin-left: 10px;
+}
+
+
+
+
+
+
+
+.footer{
+    width: 100%;
+}
+.footer2{
+    width: 100%;
+}
 }
 
 /* Medium Devices (Tablets) */
@@ -276,5 +527,6 @@
 
 /* Extra Large Devices (Large Desktops) */
 @media (min-width: 1200px) {
+    
     /* Your styles for extra large devices (large desktops) go here */
 }
