@@ -218,7 +218,8 @@
 .profile_bottom_section{
     width: 800px;
     margin-left: 200px;
-    /* height: 1000px; */
+    overflow: hidden;
+    min-height: 350px;
 }
 .question2{
     width: 800px;

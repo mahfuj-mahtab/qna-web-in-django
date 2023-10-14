@@ -104,6 +104,12 @@ def profile_view_other(request,u):
             answers = Answer.objects.all().filter(u_email = user[0].email).order_by("-id")
             
             return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers),'my_users' :my_user[0] })
+        else:
+            questions = Questions.objects.all().filter(u_email = user[0].email).order_by("-id")
+            answers = Answer.objects.all().filter(u_email = user[0].email).order_by("-id")
+            
+            return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
+
     except:
             # print('h')
             # my_user = OurUser.objects.filter(email = request.session['0'])
@@ -198,6 +204,11 @@ def profile_view_other_answer(request,u):
                 q2 = Questions.objects.filter(id = answers[i].Q_ID).order_by("-id")
             q50 = Questions.objects.filter(id__in = q)
             return render(request,"othersprofile2.html",{"user": user[0],"questions" : questions,"answered_question" : q50, "registered" : True,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers),'my_users' :my_user[0]}) 
+        else:
+            questions = Questions.objects.all().filter(u_email = user[0].email).order_by("-id")
+            answers = Answer.objects.all().filter(u_email = user[0].email).order_by("-id")
+            
+            return render(request,"othersprofile.html",{"user": user[0],"questions" : questions, "registered" : False,'send_id' : user[0].id,'total_question' : len(questions),'total_answered' : len(answers)})
         # else:
         #     questions = Questions.objects.all().filter(u_email = user[0].email)
         #     answers = Answer.objects.all().filter(u_email = user[0].email)
@@ -302,11 +313,11 @@ def signup_view(request):
         emailcount = OurUser.objects.all().filter(email = email)
 
         if(len(emailcount) > 0):
-            print("More than one email")
+            return HttpResponseRedirect("/signup/")
         else:
             usercount = OurUser.objects.all().filter(user = username)
             if(len(usercount) > 0):
-                print("more than one user name")
+                return HttpResponseRedirect("/signup/")
             else:
                 if(len(password) >= 8):
                     r = randrange(100000, 10000000)
@@ -322,7 +333,7 @@ def signup_view(request):
                     user.save()
                     return HttpResponseRedirect("/verify_register/")
                 else:
-                    print("password is less than 8 char")
+                    return HttpResponseRedirect("/signup/")
        
         
         
