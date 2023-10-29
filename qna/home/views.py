@@ -412,6 +412,7 @@ def verify_register(request):
             request.session['verified'] = True
             return HttpResponseRedirect("/login")
         else:
+            # return HttpResponseRedirect("/login")
             print("failed")
     return render(request,"verify.html")
 def pass_changed(request):
